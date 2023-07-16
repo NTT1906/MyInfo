@@ -23,16 +23,18 @@ try {
             name VARCHAR(64) NOT NULL,
             balance INTEGER DEFAULT 0
         );
-        INSERT or REPLACE into PLAYERS VALUES ("name", 1);
+        INSERT or REPLACE into PLAYERS VALUES ("naaame", 1);
     QUERY;
+    $db->query($query);
+    var_dump($db->query("SELECT * FROM PLAYERS;")->fetchArray(SQLITE3_ASSOC));
 
     // INSERT INTO players (name, balance)
     // VALUES ("cat", 12);
 
     // INSERT INTO COMPANY VALUES (7, 'James', 24, 'Houston', 10000.00 );
 
-    var_dump (($db->query($query))->fetchArray());
-    var_dump($db->query("SELECT * FROM PLAYERS;"));
+    var_dump (($db->query($query))->fetchArray(SQLITE3_ASSOC));
+    //
     //$sql = <<<UPDA TE
       //UPDATE players set name = Hi;
     //UPD ATE  ;
