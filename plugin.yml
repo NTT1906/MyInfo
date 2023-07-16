@@ -1,0 +1,16 @@
+name: MyInfo
+author: arie
+main: arie\myinfo\Loader
+website: https://github.com/Arie1906/TestPlugin
+version: 0.0.1
+api: 5.0.0
+
+commands:
+  myinfo:
+    description: see info
+    permission: if.cmd
+
+permissions:
+  if.cmd:
+    description: Allow player check their info
+    default: true
