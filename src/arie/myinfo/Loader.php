@@ -93,7 +93,7 @@ final class Loader extends PluginBase{
         return $array;
     }
 
-    private function updateDb(string $playerName, &$db = null) : bool{
+    /*private function updateDb(string $playerName, &$db = null) : bool{
         if (empty($playerName) || !isset($this->data[$playerName])) {
             return false;
         }
@@ -112,14 +112,30 @@ final class Loader extends PluginBase{
             "'" . $data[self::SQL_PLAYERS_GAME_VERSION] . "'," .
             "'" . $data[self::SQL_PLAYERS_LANGUAGE_CODE] . "');";
         $db->query($query);
-        $db->close();
         return true;
-    }
+    }*/
 
     private function saveDb() : void{
         $db = new SQLite3($this->dbpath);
         foreach (array_keys($this->data) as $playerName) {
-            $this->updateDb($playerName, $db);
+            //$this->updateDb($playerName, $db);
+            if (empty($playerName) || !isset($this->data[$playerName])) {
+                continue;
+            }
+            $data = $this->data[$playerName];
+            //$query = "INSERT OR REPLACE INTO PLAYERS " . $this->createSQLValues($data); It worked! :)
+            $query = "INSERT OR REPLACE INTO PLAYERS VALUES (" .
+                "'" . $data[self::SQL_PLAYERS_NAME] . "'," .
+                "'" . $data[self::SQL_PLAYERS_IP] . "'," .
+                $data[self::SQL_PLAYERS_PORT] . "," .
+                "'" . $data[self::SQL_PLAYERS_LOCALE] . "'," .
+                "'" . $data[self::SQL_PLAYERS_UUID] . "'," .
+                "'" . $data[self::SQL_PLAYERS_DEVICE_ID] . "'," .
+                "'" . $data[self::SQL_PLAYERS_DEVICE_MODEL] . "'," .
+                $data[self::SQL_PLAYERS_DEVICE_OS] . "," .
+                "'" . $data[self::SQL_PLAYERS_GAME_VERSION] . "'," .
+                "'" . $data[self::SQL_PLAYERS_LANGUAGE_CODE] . "');";
+            $db->query($query);
         }
         $db->close();
     }
