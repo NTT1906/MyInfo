@@ -50,14 +50,23 @@ try {
     QUERY5;
 
     $db->query($query4);
-    $db->query($query5);
+    //$db->query($query5);
 
 
     $ret = $db->query($query3);
+
+    $array = [1];
     while ($row = $ret->fetchArray(SQLITE3_ASSOC)) {
+        $name = $row['name'];
+        unset($row['name']);
+        var_dump($row);
+    }
+    var_dump($array);
+
+    /*while ($row = $ret->fetchArray(SQLITE3_ASSOC)) {
         echo "NAME = " . $row['name'] . "\n";
         echo "BALANCE =  " . $row['balance'] . "\n\n";
-    }
+    }*/
     echo "Operation done successfully\n";
 } catch (Throwable $e) {
     echo $e->getMessage() . PHP_EOL;

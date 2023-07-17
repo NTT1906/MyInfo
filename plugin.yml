@@ -1,7 +1,7 @@
 name: MyInfo
 author: arie
 main: arie\myinfo\Loader
-website: https://github.com/Arie1906/TestPlugin
+website: https://github.com/Arie1906/MyInfo
 version: 0.0.1
 api: 5.0.0
 
