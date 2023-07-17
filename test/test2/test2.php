@@ -26,4 +26,6 @@ while($row = $ret->fetchArray(SQLITE3_ASSOC) ){
 }
 echo "Operation done successfully\n";
 $db->close();
+
+
 ?>

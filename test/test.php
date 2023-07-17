@@ -22,68 +22,37 @@ try {
 
     $i = 0;
 
-    $query = <<<QUERY
+    $query1 = <<<QUERY1
         CREATE TABLE IF NOT EXISTS PLAYERS (
-            name VARCHAR(64) PRIMARY KEY NOT NULL ,
+            name VARCHAR(64) PRIMARY KEY NOT NULL,
             balance INTEGER DEFAULT 0
         );
-        INSERT or REPLACE into PLAYERS VALUES ("nasaame", 144);
-    QUERY;
-    $db->query($query);
+    QUERY1;
+    $db->query($query1);
 
-    $query = <<<QUERYR
-        REPLACE or INSERT into PLAYERS VALUES ("nasaasáame", 14423);
-    QUERYR;
-    var_dump($db->query($query)->fetchArray());
+    $query2 = <<<QUERY2
+        INSERT or REPLACE INTO PLAYERS VALUES ('Arie1906', 1);
+        INSERT or REPLACE INTO PLAYERS VALUES ('Eira6091', 12);
+    QUERY2;
+    $db->query($query2);
 
-    $data = array();
+    $query3 = <<< QUERY3
+        SELECT * FROM PLAYERS;
+    QUERY3;
 
-    $result = $db->query('SELECT * FROM PLAYERS');
-    var_dump($result->fetchArray());
+    $query4 = <<<QUERY4
+        UPDATE PLAYERS SET balance = 100 where name='Arie1906';
+    QUERY4;
 
-    while ($row = $db->query("SELECT * FROM PLAYERS;")->fetchArray()) {
-        $data[] = $row;
-        echo json_encode($row) . PHP_EOL;
-        sleep(5);
-   }
-    //echo json_encode($data, JSON_THROW_ON_ERROR);
-
-    echo "Operation done successfully\n";
-    $db->close();
-    //var_dump($db->query("")->fetchArray(SQLITE3_ASSOC));
-
-    // INSERT INTO players (name, balance)
-    // VALUES ("cat", 12);
-
-    // INSERT INTO COMPANY VALUES (7, 'James', 24, 'Houston', 10000.00 );
-    //
-    //$sql = <<<UPDA TE
-      //UPDATE players set name = Hi;
-    //UPD ATE  ;
-    //$db->exec($sql);
+    $db->query($query4);
 
 
-    /*$sql = <<<EOF
-      UPDATE COMPANY set SALARY = 25000.00 where ID=1;
-EOF;
-    $ret = $db->exec($sql);
-    if (!$ret) {
-        echo $db->lastErrorMsg();
-    } else {
-        echo $db->changes(), " Record updated successfully\n";
-    }
-
-    $sql = <<<EOF
-      SELECT * from COMPANY;
-EOF;
-    $ret = $db->query($sql);
+    $ret = $db->query($query3);
     while ($row = $ret->fetchArray(SQLITE3_ASSOC)) {
-        echo "ID = " . $row['ID'] . "\n";
-        echo "NAME = " . $row['NAME'] . "\n";
-        echo "ADDRESS = " . $row['ADDRESS'] . "\n";
-        echo "SALARY =  " . $row['SALARY'] . "\n\n";
-    }*/
-
+        echo "NAME = " . $row['name'] . "\n";
+        echo "BALANCE =  " . $row['balance'] . "\n\n";
+    }
+    echo "Operation done successfully\n";
 } catch (Throwable $e) {
-    echo $e->getMessage();
+    echo $e->getMessage() . PHP_EOL;
 }
