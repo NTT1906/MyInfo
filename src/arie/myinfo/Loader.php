@@ -24,6 +24,7 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\event\EventPriority;
 use pocketmine\event\player\PlayerPreLoginEvent;
+use pocketmine\network\mcpe\protocol\types\DeviceOS;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\SingletonTrait;
@@ -206,6 +207,25 @@ final class Loader extends PluginBase{
         }
         $s = "";
         foreach ($this->data[$playerName] as $i => $v) {
+            if ($i === self::SQL_PLAYERS_DEVICE_OS) {
+                $v = match($v) {
+                    DeviceOS::UNKNOWN => "N/A",
+                    DeviceOS::ANDROID => "Android",
+                    DeviceOS::IOS => "IOS",
+                    DeviceOS::OSX => "OSX",
+                    DeviceOS::AMAZON => "AMAZON",
+                    DeviceOS::GEAR_VR => "Gear VR",
+                    DeviceOS::HOLOLENS => "Hololens",
+                    DeviceOS::WINDOWS_10 => "Windows 10",
+                    DeviceOS::WIN32 => "Win 32",
+                    DeviceOS::DEDICATED => "Dedicated",
+                    DeviceOS::TVOS => "TVOS",
+                    DeviceOS::PLAYSTATION => "PlayStation",
+                    DeviceOS::NINTENDO => "Nintendo",
+                    DeviceOS::XBOX => "Xbox",
+                    DeviceOS::WINDOWS_PHONE => "Window Phone",
+                };
+            }
             $s .= $i . ":  " . $v . TextFormat::EOL;
         }
         return $s;
