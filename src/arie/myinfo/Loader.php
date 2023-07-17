@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of FakePlayer
+ * This file is part of MyInfo
  *
  * @author Arie
  * @link   https://github.com/Arie

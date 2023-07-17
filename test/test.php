@@ -1,9 +1,9 @@
 <?php
 /**
- * This file is part of PROJECT_NAME
+ * This file is part of MyInfo
  *
- * @author Arisify
- * @link   https://github.com/Arisify
+ * @author Arie
+ * @link   https://github.com/Arie
  * @license https://opensource.org/licenses/MIT MIT License
  *
  * •.,¸,.•*`•.,¸¸,.•*¯ ╭━━━━━━━━━━━━╮
@@ -14,26 +14,48 @@
  */
 declare(strict_types=1);
 
+use pocketmine\world\format\io\leveldb\LevelDB;
+
 try {
     $db = new SQLite3("test.db");
     echo "Opened database successfully\n";
 
+    $i = 0;
+
     $query = <<<QUERY
         CREATE TABLE IF NOT EXISTS PLAYERS (
-            name VARCHAR(64) NOT NULL,
+            name VARCHAR(64) PRIMARY KEY NOT NULL ,
             balance INTEGER DEFAULT 0
         );
-        INSERT or REPLACE into PLAYERS VALUES ("naaame", 1);
+        INSERT or REPLACE into PLAYERS VALUES ("nasaame", 144);
     QUERY;
     $db->query($query);
-    var_dump($db->query("SELECT * FROM PLAYERS;")->fetchArray(SQLITE3_ASSOC));
+
+    $query = <<<QUERYR
+        REPLACE or INSERT into PLAYERS VALUES ("nasaasáame", 14423);
+    QUERYR;
+    var_dump($db->query($query)->fetchArray());
+
+    $data = array();
+
+    $result = $db->query('SELECT * FROM PLAYERS');
+    var_dump($result->fetchArray());
+
+    while ($row = $db->query("SELECT * FROM PLAYERS;")->fetchArray()) {
+        $data[] = $row;
+        echo json_encode($row) . PHP_EOL;
+        sleep(5);
+   }
+    //echo json_encode($data, JSON_THROW_ON_ERROR);
+
+    echo "Operation done successfully\n";
+    $db->close();
+    //var_dump($db->query("")->fetchArray(SQLITE3_ASSOC));
 
     // INSERT INTO players (name, balance)
     // VALUES ("cat", 12);
 
     // INSERT INTO COMPANY VALUES (7, 'James', 24, 'Houston', 10000.00 );
-
-    var_dump (($db->query($query))->fetchArray(SQLITE3_ASSOC));
     //
     //$sql = <<<UPDA TE
       //UPDATE players set name = Hi;
@@ -61,8 +83,6 @@ EOF;
         echo "ADDRESS = " . $row['ADDRESS'] . "\n";
         echo "SALARY =  " . $row['SALARY'] . "\n\n";
     }*/
-    echo "Operation done successfully\n";
-    $db->close();
 
 } catch (Throwable $e) {
     echo $e->getMessage();
