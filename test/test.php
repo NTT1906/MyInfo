@@ -31,8 +31,9 @@ try {
     $db->query($query1);
 
     $query2 = <<<QUERY2
-        INSERT or REPLACE INTO PLAYERS VALUES ('Arie1906', 1);
-        INSERT or REPLACE INTO PLAYERS VALUES ('Eira6091', 12);
+        INSERT OR REPLACE INTO PLAYERS VALUES ('Arie1906', 1);
+        INSERT OR REPLACE INTO PLAYERS VALUES ('Eira6091', 12);
+        INSERT OR REPLACE INTO PLAYERS VALUES ('Raei0619', 123);
     QUERY2;
     $db->query($query2);
 
@@ -41,10 +42,15 @@ try {
     QUERY3;
 
     $query4 = <<<QUERY4
-        UPDATE PLAYERS SET balance = 100 where name='Arie1906';
+        UPDATE PLAYERS SET balance = 100 WHERE name='Arie1906';
     QUERY4;
 
+    $query5 = <<<QUERY5
+        DELETE FROM PLAYERS WHERE name='Raei0619';
+    QUERY5;
+
     $db->query($query4);
+    $db->query($query5);
 
 
     $ret = $db->query($query3);
